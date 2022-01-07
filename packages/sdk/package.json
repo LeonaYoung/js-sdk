@@ -8,20 +8,14 @@
     "url": "https://github.com/Phala-Network/js-sdk.git",
     "directory": "packages/sdk"
   },
-  "type": "module",
-  "main": "esm/index.js",
-  "module": "esm/index.js",
-  "types": "esm/index.d.ts",
-  "files": [
-    "esm"
-  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf esm && tsc && cp -R src/proto esm",
+    "build": "rm -rf dist && tsc && cp -R src/proto dist",
     "build:proto": "scripts/build_proto.sh",
     "dev": "tsc --watch --preserveWatchOutput",
     "lint": "eslint --cache .",
-    "lint:fix": "eslint --cache --fix .",
-    "ts-node": "node --experimental-specifier-resolution=node --loader ts-node/esm"
+    "lint:fix": "eslint --cache --fix ."
   },
   "dependencies": {
     "@phala/typedefs": "^0.2.29",

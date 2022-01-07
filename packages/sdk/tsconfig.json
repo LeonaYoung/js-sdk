@@ -2,11 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "esm",
-    "lib": ["esnext", "dom"],
+    "outDir": "dist",
+    "lib": ["esnext"],
     "target": "esnext",
-    "declaration": true
-
+    "declaration": true,
+    "module": "commonjs"
   },
   "ts-node": {
     "files": true

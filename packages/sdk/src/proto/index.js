@@ -1,22 +1,22 @@
 /*eslint-disable block-scoped-var, id-length, no-control-regex, no-magic-numbers, no-prototype-builtins, no-redeclare, no-shadow, no-var, sort-vars*/
-// custom esm wrapper
-// https://github.com/protobufjs/protobuf.js/tree/master/cli/wrappers
-import $protobuf from "protobufjs/minimal";
+"use strict";
+
+var $protobuf = require("protobufjs/minimal");
 
 // Common aliases
-const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-export const prpc = $root.prpc = (() => {
+$root.prpc = (function() {
 
     /**
      * Namespace prpc.
      * @exports prpc
      * @namespace
      */
-    const prpc = {};
+    var prpc = {};
 
     prpc.PrpcError = (function() {
 
@@ -37,7 +37,7 @@ export const prpc = $root.prpc = (() => {
          */
         function PrpcError(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -106,9 +106,9 @@ export const prpc = $root.prpc = (() => {
         PrpcError.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.prpc.PrpcError();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.prpc.PrpcError();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.message = reader.string();
@@ -165,7 +165,7 @@ export const prpc = $root.prpc = (() => {
         PrpcError.fromObject = function fromObject(object) {
             if (object instanceof $root.prpc.PrpcError)
                 return object;
-            let message = new $root.prpc.PrpcError();
+            var message = new $root.prpc.PrpcError();
             if (object.message != null)
                 message.message = String(object.message);
             return message;
@@ -183,7 +183,7 @@ export const prpc = $root.prpc = (() => {
         PrpcError.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 object.message = "";
             if (message.message != null && message.hasOwnProperty("message"))
@@ -208,14 +208,14 @@ export const prpc = $root.prpc = (() => {
     return prpc;
 })();
 
-export const pruntime_rpc = $root.pruntime_rpc = (() => {
+$root.pruntime_rpc = (function() {
 
     /**
      * Namespace pruntime_rpc.
      * @exports pruntime_rpc
      * @namespace
      */
-    const pruntime_rpc = {};
+    var pruntime_rpc = {};
 
     pruntime_rpc.PhactoryAPI = (function() {
 
@@ -650,7 +650,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function PhactoryInfo(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -792,7 +792,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         PhactoryInfo.prototype.memory_usage = null;
 
         // OneOf field names bound to virtual getters and setters
-        let $oneOfFields;
+        var $oneOfFields;
 
         /**
          * PhactoryInfo _genesis_block_hash.
@@ -915,9 +915,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         PhactoryInfo.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.PhactoryInfo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.PhactoryInfo();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.initialized = reader.bool();
@@ -1005,7 +1005,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         PhactoryInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            let properties = {};
+            var properties = {};
             if (message.initialized != null && message.hasOwnProperty("initialized"))
                 if (typeof message.initialized !== "boolean")
                     return "initialized: boolean expected";
@@ -1049,7 +1049,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!$util.isInteger(message.score) && !(message.score && $util.isInteger(message.score.low) && $util.isInteger(message.score.high)))
                     return "score: integer|Long expected";
             if (message.gatekeeper != null && message.hasOwnProperty("gatekeeper")) {
-                let error = $root.pruntime_rpc.GatekeeperStatus.verify(message.gatekeeper);
+                var error = $root.pruntime_rpc.GatekeeperStatus.verify(message.gatekeeper);
                 if (error)
                     return "gatekeeper." + error;
             }
@@ -1063,7 +1063,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!$util.isInteger(message.running_side_tasks) && !(message.running_side_tasks && $util.isInteger(message.running_side_tasks.low) && $util.isInteger(message.running_side_tasks.high)))
                     return "running_side_tasks: integer|Long expected";
             if (message.memory_usage != null && message.hasOwnProperty("memory_usage")) {
-                let error = $root.pruntime_rpc.MemoryUsage.verify(message.memory_usage);
+                var error = $root.pruntime_rpc.MemoryUsage.verify(message.memory_usage);
                 if (error)
                     return "memory_usage." + error;
             }
@@ -1081,7 +1081,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         PhactoryInfo.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.PhactoryInfo)
                 return object;
-            let message = new $root.pruntime_rpc.PhactoryInfo();
+            var message = new $root.pruntime_rpc.PhactoryInfo();
             if (object.initialized != null)
                 message.initialized = Boolean(object.initialized);
             if (object.registered != null)
@@ -1158,7 +1158,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         PhactoryInfo.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.initialized = false;
                 object.registered = false;
@@ -1168,12 +1168,12 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 object.state_root = "";
                 object.dev_mode = false;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.pending_messages = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.pending_messages = options.longs === String ? "0" : 0;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.score = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.score = options.longs === String ? "0" : 0;
@@ -1181,7 +1181,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 object.version = "";
                 object.git_revision = "";
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.running_side_tasks = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.running_side_tasks = options.longs === String ? "0" : 0;
@@ -1265,7 +1265,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
      * @property {number} Active=2 Active value
      */
     pruntime_rpc.GatekeeperRole = (function() {
-        const valuesById = {}, values = Object.create(valuesById);
+        var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[0] = "None"] = 0;
         values[valuesById[1] = "Dummy"] = 1;
         values[valuesById[2] = "Active"] = 2;
@@ -1292,7 +1292,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function GatekeeperStatus(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -1371,9 +1371,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GatekeeperStatus.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.GatekeeperStatus();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.GatekeeperStatus();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.role = reader.int32();
@@ -1442,7 +1442,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GatekeeperStatus.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.GatekeeperStatus)
                 return object;
-            let message = new $root.pruntime_rpc.GatekeeperStatus();
+            var message = new $root.pruntime_rpc.GatekeeperStatus();
             switch (object.role) {
             case "None":
             case 0:
@@ -1474,7 +1474,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GatekeeperStatus.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.role = options.enums === String ? "None" : 0;
                 object.master_public_key = "";
@@ -1521,7 +1521,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function MemoryUsage(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -1610,9 +1610,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         MemoryUsage.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.MemoryUsage();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.MemoryUsage();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.rust_used = reader.uint64();
@@ -1681,7 +1681,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         MemoryUsage.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.MemoryUsage)
                 return object;
-            let message = new $root.pruntime_rpc.MemoryUsage();
+            var message = new $root.pruntime_rpc.MemoryUsage();
             if (object.rust_used != null)
                 if ($util.Long)
                     (message.rust_used = $util.Long.fromValue(object.rust_used)).unsigned = true;
@@ -1724,20 +1724,20 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         MemoryUsage.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.rust_used = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.rust_used = options.longs === String ? "0" : 0;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.rust_peak_used = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.rust_peak_used = options.longs === String ? "0" : 0;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.total_peak_used = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.total_peak_used = options.longs === String ? "0" : 0;
@@ -1793,7 +1793,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function SyncedTo(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -1862,9 +1862,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         SyncedTo.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.SyncedTo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.SyncedTo();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.synced_to = reader.uint32();
@@ -1921,7 +1921,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         SyncedTo.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.SyncedTo)
                 return object;
-            let message = new $root.pruntime_rpc.SyncedTo();
+            var message = new $root.pruntime_rpc.SyncedTo();
             if (object.synced_to != null)
                 message.synced_to = object.synced_to >>> 0;
             return message;
@@ -1939,7 +1939,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         SyncedTo.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 object.synced_to = 0;
             if (message.synced_to != null && message.hasOwnProperty("synced_to"))
@@ -1981,7 +1981,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function HeadersToSync(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -2003,7 +2003,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersToSync.prototype.encoded_authority_set_change = null;
 
         // OneOf field names bound to virtual getters and setters
-        let $oneOfFields;
+        var $oneOfFields;
 
         /**
          * HeadersToSync _encoded_authority_set_change.
@@ -2074,9 +2074,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersToSync.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.HeadersToSync();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.HeadersToSync();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_headers = reader.bytes();
@@ -2119,7 +2119,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersToSync.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            let properties = {};
+            var properties = {};
             if (message.encoded_headers != null && message.hasOwnProperty("encoded_headers"))
                 if (!(message.encoded_headers && typeof message.encoded_headers.length === "number" || $util.isString(message.encoded_headers)))
                     return "encoded_headers: buffer expected";
@@ -2142,7 +2142,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersToSync.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.HeadersToSync)
                 return object;
-            let message = new $root.pruntime_rpc.HeadersToSync();
+            var message = new $root.pruntime_rpc.HeadersToSync();
             if (object.encoded_headers != null)
                 if (typeof object.encoded_headers === "string")
                     $util.base64.decode(object.encoded_headers, message.encoded_headers = $util.newBuffer($util.base64.length(object.encoded_headers)), 0);
@@ -2168,7 +2168,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersToSync.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 if (options.bytes === String)
                     object.encoded_headers = "";
@@ -2222,7 +2222,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         function ParaHeadersToSync(properties) {
             this.proof = [];
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -2270,7 +2270,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
             if (message.encoded_headers != null && Object.hasOwnProperty.call(message, "encoded_headers"))
                 writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.encoded_headers);
             if (message.proof != null && message.proof.length)
-                for (let i = 0; i < message.proof.length; ++i)
+                for (var i = 0; i < message.proof.length; ++i)
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.proof[i]);
             return writer;
         };
@@ -2302,9 +2302,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ParaHeadersToSync.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.ParaHeadersToSync();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.ParaHeadersToSync();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_headers = reader.bytes();
@@ -2355,7 +2355,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
             if (message.proof != null && message.hasOwnProperty("proof")) {
                 if (!Array.isArray(message.proof))
                     return "proof: array expected";
-                for (let i = 0; i < message.proof.length; ++i)
+                for (var i = 0; i < message.proof.length; ++i)
                     if (!(message.proof[i] && typeof message.proof[i].length === "number" || $util.isString(message.proof[i])))
                         return "proof: buffer[] expected";
             }
@@ -2373,7 +2373,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ParaHeadersToSync.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.ParaHeadersToSync)
                 return object;
-            let message = new $root.pruntime_rpc.ParaHeadersToSync();
+            var message = new $root.pruntime_rpc.ParaHeadersToSync();
             if (object.encoded_headers != null)
                 if (typeof object.encoded_headers === "string")
                     $util.base64.decode(object.encoded_headers, message.encoded_headers = $util.newBuffer($util.base64.length(object.encoded_headers)), 0);
@@ -2383,7 +2383,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!Array.isArray(object.proof))
                     throw TypeError(".pruntime_rpc.ParaHeadersToSync.proof: array expected");
                 message.proof = [];
-                for (let i = 0; i < object.proof.length; ++i)
+                for (var i = 0; i < object.proof.length; ++i)
                     if (typeof object.proof[i] === "string")
                         $util.base64.decode(object.proof[i], message.proof[i] = $util.newBuffer($util.base64.length(object.proof[i])), 0);
                     else if (object.proof[i].length)
@@ -2404,7 +2404,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ParaHeadersToSync.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.arrays || options.defaults)
                 object.proof = [];
             if (options.defaults)
@@ -2419,7 +2419,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 object.encoded_headers = options.bytes === String ? $util.base64.encode(message.encoded_headers, 0, message.encoded_headers.length) : options.bytes === Array ? Array.prototype.slice.call(message.encoded_headers) : message.encoded_headers;
             if (message.proof && message.proof.length) {
                 object.proof = [];
-                for (let j = 0; j < message.proof.length; ++j)
+                for (var j = 0; j < message.proof.length; ++j)
                     object.proof[j] = options.bytes === String ? $util.base64.encode(message.proof[j], 0, message.proof[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.proof[j]) : message.proof[j];
             }
             return object;
@@ -2462,7 +2462,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         function CombinedHeadersToSync(properties) {
             this.proof = [];
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -2500,7 +2500,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         CombinedHeadersToSync.prototype.proof = $util.emptyArray;
 
         // OneOf field names bound to virtual getters and setters
-        let $oneOfFields;
+        var $oneOfFields;
 
         /**
          * CombinedHeadersToSync _authority_set_change.
@@ -2544,7 +2544,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
             if (message.encoded_parachain_headers != null && Object.hasOwnProperty.call(message, "encoded_parachain_headers"))
                 writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.encoded_parachain_headers);
             if (message.proof != null && message.proof.length)
-                for (let i = 0; i < message.proof.length; ++i)
+                for (var i = 0; i < message.proof.length; ++i)
                     writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.proof[i]);
             return writer;
         };
@@ -2576,9 +2576,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         CombinedHeadersToSync.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.CombinedHeadersToSync();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.CombinedHeadersToSync();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_relaychain_headers = reader.bytes();
@@ -2629,7 +2629,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         CombinedHeadersToSync.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            let properties = {};
+            var properties = {};
             if (message.encoded_relaychain_headers != null && message.hasOwnProperty("encoded_relaychain_headers"))
                 if (!(message.encoded_relaychain_headers && typeof message.encoded_relaychain_headers.length === "number" || $util.isString(message.encoded_relaychain_headers)))
                     return "encoded_relaychain_headers: buffer expected";
@@ -2644,7 +2644,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
             if (message.proof != null && message.hasOwnProperty("proof")) {
                 if (!Array.isArray(message.proof))
                     return "proof: array expected";
-                for (let i = 0; i < message.proof.length; ++i)
+                for (var i = 0; i < message.proof.length; ++i)
                     if (!(message.proof[i] && typeof message.proof[i].length === "number" || $util.isString(message.proof[i])))
                         return "proof: buffer[] expected";
             }
@@ -2662,7 +2662,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         CombinedHeadersToSync.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.CombinedHeadersToSync)
                 return object;
-            let message = new $root.pruntime_rpc.CombinedHeadersToSync();
+            var message = new $root.pruntime_rpc.CombinedHeadersToSync();
             if (object.encoded_relaychain_headers != null)
                 if (typeof object.encoded_relaychain_headers === "string")
                     $util.base64.decode(object.encoded_relaychain_headers, message.encoded_relaychain_headers = $util.newBuffer($util.base64.length(object.encoded_relaychain_headers)), 0);
@@ -2682,7 +2682,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!Array.isArray(object.proof))
                     throw TypeError(".pruntime_rpc.CombinedHeadersToSync.proof: array expected");
                 message.proof = [];
-                for (let i = 0; i < object.proof.length; ++i)
+                for (var i = 0; i < object.proof.length; ++i)
                     if (typeof object.proof[i] === "string")
                         $util.base64.decode(object.proof[i], message.proof[i] = $util.newBuffer($util.base64.length(object.proof[i])), 0);
                     else if (object.proof[i].length)
@@ -2703,7 +2703,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         CombinedHeadersToSync.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.arrays || options.defaults)
                 object.proof = [];
             if (options.defaults) {
@@ -2733,7 +2733,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 object.encoded_parachain_headers = options.bytes === String ? $util.base64.encode(message.encoded_parachain_headers, 0, message.encoded_parachain_headers.length) : options.bytes === Array ? Array.prototype.slice.call(message.encoded_parachain_headers) : message.encoded_parachain_headers;
             if (message.proof && message.proof.length) {
                 object.proof = [];
-                for (let j = 0; j < message.proof.length; ++j)
+                for (var j = 0; j < message.proof.length; ++j)
                     object.proof[j] = options.bytes === String ? $util.base64.encode(message.proof[j], 0, message.proof[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.proof[j]) : message.proof[j];
             }
             return object;
@@ -2773,7 +2773,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function HeadersSyncedTo(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -2852,9 +2852,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersSyncedTo.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.HeadersSyncedTo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.HeadersSyncedTo();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.relaychain_synced_to = reader.uint32();
@@ -2917,7 +2917,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersSyncedTo.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.HeadersSyncedTo)
                 return object;
-            let message = new $root.pruntime_rpc.HeadersSyncedTo();
+            var message = new $root.pruntime_rpc.HeadersSyncedTo();
             if (object.relaychain_synced_to != null)
                 message.relaychain_synced_to = object.relaychain_synced_to >>> 0;
             if (object.parachain_synced_to != null)
@@ -2937,7 +2937,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         HeadersSyncedTo.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.relaychain_synced_to = 0;
                 object.parachain_synced_to = 0;
@@ -2982,7 +2982,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function Blocks(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -3051,9 +3051,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Blocks.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Blocks();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Blocks();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_blocks = reader.bytes();
@@ -3110,7 +3110,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Blocks.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.Blocks)
                 return object;
-            let message = new $root.pruntime_rpc.Blocks();
+            var message = new $root.pruntime_rpc.Blocks();
             if (object.encoded_blocks != null)
                 if (typeof object.encoded_blocks === "string")
                     $util.base64.decode(object.encoded_blocks, message.encoded_blocks = $util.newBuffer($util.base64.length(object.encoded_blocks)), 0);
@@ -3131,7 +3131,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Blocks.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 if (options.bytes === String)
                     object.encoded_blocks = "";
@@ -3183,7 +3183,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function InitRuntimeRequest(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -3237,7 +3237,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeRequest.prototype.is_parachain = false;
 
         // OneOf field names bound to virtual getters and setters
-        let $oneOfFields;
+        var $oneOfFields;
 
         /**
          * InitRuntimeRequest _debug_set_key.
@@ -3327,9 +3327,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeRequest.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.InitRuntimeRequest();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.InitRuntimeRequest();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.skip_ra = reader.bool();
@@ -3384,7 +3384,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeRequest.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            let properties = {};
+            var properties = {};
             if (message.skip_ra != null && message.hasOwnProperty("skip_ra"))
                 if (typeof message.skip_ra !== "boolean")
                     return "skip_ra: boolean expected";
@@ -3421,7 +3421,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeRequest.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.InitRuntimeRequest)
                 return object;
-            let message = new $root.pruntime_rpc.InitRuntimeRequest();
+            var message = new $root.pruntime_rpc.InitRuntimeRequest();
             if (object.skip_ra != null)
                 message.skip_ra = Boolean(object.skip_ra);
             if (object.encoded_genesis_info != null)
@@ -3461,7 +3461,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeRequest.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.skip_ra = false;
                 if (options.bytes === String)
@@ -3538,7 +3538,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function InitRuntimeResponse(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -3584,7 +3584,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeResponse.prototype.attestation = null;
 
         // OneOf field names bound to virtual getters and setters
-        let $oneOfFields;
+        var $oneOfFields;
 
         /**
          * InitRuntimeResponse _attestation.
@@ -3661,9 +3661,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeResponse.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.InitRuntimeResponse();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.InitRuntimeResponse();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_runtime_info = reader.bytes();
@@ -3715,7 +3715,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeResponse.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            let properties = {};
+            var properties = {};
             if (message.encoded_runtime_info != null && message.hasOwnProperty("encoded_runtime_info"))
                 if (!(message.encoded_runtime_info && typeof message.encoded_runtime_info.length === "number" || $util.isString(message.encoded_runtime_info)))
                     return "encoded_runtime_info: buffer expected";
@@ -3731,7 +3731,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
             if (message.attestation != null && message.hasOwnProperty("attestation")) {
                 properties._attestation = 1;
                 {
-                    let error = $root.pruntime_rpc.Attestation.verify(message.attestation);
+                    var error = $root.pruntime_rpc.Attestation.verify(message.attestation);
                     if (error)
                         return "attestation." + error;
                 }
@@ -3750,7 +3750,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeResponse.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.InitRuntimeResponse)
                 return object;
-            let message = new $root.pruntime_rpc.InitRuntimeResponse();
+            var message = new $root.pruntime_rpc.InitRuntimeResponse();
             if (object.encoded_runtime_info != null)
                 if (typeof object.encoded_runtime_info === "string")
                     $util.base64.decode(object.encoded_runtime_info, message.encoded_runtime_info = $util.newBuffer($util.base64.length(object.encoded_runtime_info)), 0);
@@ -3791,7 +3791,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         InitRuntimeResponse.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 if (options.bytes === String)
                     object.encoded_runtime_info = "";
@@ -3874,7 +3874,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function Attestation(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -3973,9 +3973,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Attestation.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Attestation();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Attestation();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.version = reader.int32();
@@ -4031,7 +4031,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!$util.isString(message.provider))
                     return "provider: string expected";
             if (message.payload != null && message.hasOwnProperty("payload")) {
-                let error = $root.pruntime_rpc.AttestationReport.verify(message.payload);
+                var error = $root.pruntime_rpc.AttestationReport.verify(message.payload);
                 if (error)
                     return "payload." + error;
             }
@@ -4052,7 +4052,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Attestation.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.Attestation)
                 return object;
-            let message = new $root.pruntime_rpc.Attestation();
+            var message = new $root.pruntime_rpc.Attestation();
             if (object.version != null)
                 message.version = object.version | 0;
             if (object.provider != null)
@@ -4086,13 +4086,13 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Attestation.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.version = 0;
                 object.provider = "";
                 object.payload = null;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.timestamp = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.timestamp = options.longs === String ? "0" : 0;
@@ -4146,7 +4146,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function AttestationReport(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -4235,9 +4235,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         AttestationReport.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.AttestationReport();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.AttestationReport();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.report = reader.string();
@@ -4306,7 +4306,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         AttestationReport.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.AttestationReport)
                 return object;
-            let message = new $root.pruntime_rpc.AttestationReport();
+            var message = new $root.pruntime_rpc.AttestationReport();
             if (object.report != null)
                 message.report = String(object.report);
             if (object.signature != null)
@@ -4334,7 +4334,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         AttestationReport.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.report = "";
                 if (options.bytes === String)
@@ -4394,7 +4394,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function GetEgressMessagesResponse(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -4463,9 +4463,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GetEgressMessagesResponse.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.GetEgressMessagesResponse();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.GetEgressMessagesResponse();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_messages = reader.bytes();
@@ -4522,7 +4522,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GetEgressMessagesResponse.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.GetEgressMessagesResponse)
                 return object;
-            let message = new $root.pruntime_rpc.GetEgressMessagesResponse();
+            var message = new $root.pruntime_rpc.GetEgressMessagesResponse();
             if (object.encoded_messages != null)
                 if (typeof object.encoded_messages === "string")
                     $util.base64.decode(object.encoded_messages, message.encoded_messages = $util.newBuffer($util.base64.length(object.encoded_messages)), 0);
@@ -4543,7 +4543,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GetEgressMessagesResponse.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 if (options.bytes === String)
                     object.encoded_messages = "";
@@ -4591,7 +4591,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function ContractQueryRequest(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -4670,9 +4670,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ContractQueryRequest.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.ContractQueryRequest();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.ContractQueryRequest();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_encrypted_data = reader.bytes();
@@ -4719,7 +4719,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!(message.encoded_encrypted_data && typeof message.encoded_encrypted_data.length === "number" || $util.isString(message.encoded_encrypted_data)))
                     return "encoded_encrypted_data: buffer expected";
             if (message.signature != null && message.hasOwnProperty("signature")) {
-                let error = $root.pruntime_rpc.Signature.verify(message.signature);
+                var error = $root.pruntime_rpc.Signature.verify(message.signature);
                 if (error)
                     return "signature." + error;
             }
@@ -4737,7 +4737,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ContractQueryRequest.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.ContractQueryRequest)
                 return object;
-            let message = new $root.pruntime_rpc.ContractQueryRequest();
+            var message = new $root.pruntime_rpc.ContractQueryRequest();
             if (object.encoded_encrypted_data != null)
                 if (typeof object.encoded_encrypted_data === "string")
                     $util.base64.decode(object.encoded_encrypted_data, message.encoded_encrypted_data = $util.newBuffer($util.base64.length(object.encoded_encrypted_data)), 0);
@@ -4763,7 +4763,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ContractQueryRequest.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 if (options.bytes === String)
                     object.encoded_encrypted_data = "";
@@ -4816,7 +4816,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function Signature(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -4905,9 +4905,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Signature.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Signature();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Signature();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.signed_by = $root.pruntime_rpc.Certificate.decode(reader, reader.uint32());
@@ -4954,7 +4954,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.signed_by != null && message.hasOwnProperty("signed_by")) {
-                let error = $root.pruntime_rpc.Certificate.verify(message.signed_by);
+                var error = $root.pruntime_rpc.Certificate.verify(message.signed_by);
                 if (error)
                     return "signed_by." + error;
             }
@@ -4987,7 +4987,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Signature.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.Signature)
                 return object;
-            let message = new $root.pruntime_rpc.Signature();
+            var message = new $root.pruntime_rpc.Signature();
             if (object.signed_by != null) {
                 if (typeof object.signed_by !== "object")
                     throw TypeError(".pruntime_rpc.Signature.signed_by: object expected");
@@ -5039,7 +5039,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Signature.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.signed_by = null;
                 object.signature_type = options.enums === String ? "Ed25519" : 0;
@@ -5094,7 +5094,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function Certificate(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -5173,9 +5173,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Certificate.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Certificate();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.Certificate();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_body = reader.bytes();
@@ -5222,7 +5222,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!(message.encoded_body && typeof message.encoded_body.length === "number" || $util.isString(message.encoded_body)))
                     return "encoded_body: buffer expected";
             if (message.signature != null && message.hasOwnProperty("signature")) {
-                let error = $root.pruntime_rpc.Signature.verify(message.signature);
+                var error = $root.pruntime_rpc.Signature.verify(message.signature);
                 if (error)
                     return "signature." + error;
             }
@@ -5240,7 +5240,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Certificate.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.Certificate)
                 return object;
-            let message = new $root.pruntime_rpc.Certificate();
+            var message = new $root.pruntime_rpc.Certificate();
             if (object.encoded_body != null)
                 if (typeof object.encoded_body === "string")
                     $util.base64.decode(object.encoded_body, message.encoded_body = $util.newBuffer($util.base64.length(object.encoded_body)), 0);
@@ -5266,7 +5266,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         Certificate.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 if (options.bytes === String)
                     object.encoded_body = "";
@@ -5310,7 +5310,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
      * @property {number} EcdsaWrapBytes=5 EcdsaWrapBytes value
      */
     pruntime_rpc.SignatureType = (function() {
-        const valuesById = {}, values = Object.create(valuesById);
+        var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[0] = "Ed25519"] = 0;
         values[valuesById[1] = "Sr25519"] = 1;
         values[valuesById[2] = "Ecdsa"] = 2;
@@ -5339,7 +5339,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function ContractQueryResponse(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -5408,9 +5408,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ContractQueryResponse.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.ContractQueryResponse();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.ContractQueryResponse();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.encoded_encrypted_data = reader.bytes();
@@ -5467,7 +5467,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ContractQueryResponse.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.ContractQueryResponse)
                 return object;
-            let message = new $root.pruntime_rpc.ContractQueryResponse();
+            var message = new $root.pruntime_rpc.ContractQueryResponse();
             if (object.encoded_encrypted_data != null)
                 if (typeof object.encoded_encrypted_data === "string")
                     $util.base64.decode(object.encoded_encrypted_data, message.encoded_encrypted_data = $util.newBuffer($util.base64.length(object.encoded_encrypted_data)), 0);
@@ -5488,7 +5488,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         ContractQueryResponse.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 if (options.bytes === String)
                     object.encoded_encrypted_data = "";
@@ -5535,7 +5535,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function GetWorkerStateRequest(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -5604,9 +5604,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GetWorkerStateRequest.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.GetWorkerStateRequest();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.GetWorkerStateRequest();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.public_key = reader.bytes();
@@ -5663,7 +5663,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GetWorkerStateRequest.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.GetWorkerStateRequest)
                 return object;
-            let message = new $root.pruntime_rpc.GetWorkerStateRequest();
+            var message = new $root.pruntime_rpc.GetWorkerStateRequest();
             if (object.public_key != null)
                 if (typeof object.public_key === "string")
                     $util.base64.decode(object.public_key, message.public_key = $util.newBuffer($util.base64.length(object.public_key)), 0);
@@ -5684,7 +5684,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         GetWorkerStateRequest.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 if (options.bytes === String)
                     object.public_key = "";
@@ -5741,7 +5741,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         function WorkerState(properties) {
             this.waiting_heartbeats = [];
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -5860,7 +5860,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 $root.pruntime_rpc.MiningState.encode(message.mining_state, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             if (message.waiting_heartbeats != null && message.waiting_heartbeats.length) {
                 writer.uint32(/* id 5, wireType 2 =*/42).fork();
-                for (let i = 0; i < message.waiting_heartbeats.length; ++i)
+                for (var i = 0; i < message.waiting_heartbeats.length; ++i)
                     writer.uint32(message.waiting_heartbeats[i]);
                 writer.ldelim();
             }
@@ -5904,9 +5904,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         WorkerState.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.WorkerState();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.WorkerState();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.registered = reader.bool();
@@ -5924,7 +5924,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                     if (!(message.waiting_heartbeats && message.waiting_heartbeats.length))
                         message.waiting_heartbeats = [];
                     if ((tag & 7) === 2) {
-                        let end2 = reader.uint32() + reader.pos;
+                        var end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2)
                             message.waiting_heartbeats.push(reader.uint32());
                     } else
@@ -5987,19 +5987,19 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (typeof message.unresponsive !== "boolean")
                     return "unresponsive: boolean expected";
             if (message.bench_state != null && message.hasOwnProperty("bench_state")) {
-                let error = $root.pruntime_rpc.BenchState.verify(message.bench_state);
+                var error = $root.pruntime_rpc.BenchState.verify(message.bench_state);
                 if (error)
                     return "bench_state." + error;
             }
             if (message.mining_state != null && message.hasOwnProperty("mining_state")) {
-                let error = $root.pruntime_rpc.MiningState.verify(message.mining_state);
+                var error = $root.pruntime_rpc.MiningState.verify(message.mining_state);
                 if (error)
                     return "mining_state." + error;
             }
             if (message.waiting_heartbeats != null && message.hasOwnProperty("waiting_heartbeats")) {
                 if (!Array.isArray(message.waiting_heartbeats))
                     return "waiting_heartbeats: array expected";
-                for (let i = 0; i < message.waiting_heartbeats.length; ++i)
+                for (var i = 0; i < message.waiting_heartbeats.length; ++i)
                     if (!$util.isInteger(message.waiting_heartbeats[i]))
                         return "waiting_heartbeats: integer[] expected";
             }
@@ -6022,7 +6022,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!$util.isInteger(message.last_gk_responsive_event_at_block))
                     return "last_gk_responsive_event_at_block: integer expected";
             if (message.tokenomic_info != null && message.hasOwnProperty("tokenomic_info")) {
-                let error = $root.pruntime_rpc.TokenomicInfo.verify(message.tokenomic_info);
+                var error = $root.pruntime_rpc.TokenomicInfo.verify(message.tokenomic_info);
                 if (error)
                     return "tokenomic_info." + error;
             }
@@ -6040,7 +6040,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         WorkerState.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.WorkerState)
                 return object;
-            let message = new $root.pruntime_rpc.WorkerState();
+            var message = new $root.pruntime_rpc.WorkerState();
             if (object.registered != null)
                 message.registered = Boolean(object.registered);
             if (object.unresponsive != null)
@@ -6059,7 +6059,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 if (!Array.isArray(object.waiting_heartbeats))
                     throw TypeError(".pruntime_rpc.WorkerState.waiting_heartbeats: array expected");
                 message.waiting_heartbeats = [];
-                for (let i = 0; i < object.waiting_heartbeats.length; ++i)
+                for (var i = 0; i < object.waiting_heartbeats.length; ++i)
                     message.waiting_heartbeats[i] = object.waiting_heartbeats[i] >>> 0;
             }
             if (object.last_heartbeat_for_block != null)
@@ -6102,7 +6102,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         WorkerState.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.arrays || options.defaults)
                 object.waiting_heartbeats = [];
             if (options.defaults) {
@@ -6126,7 +6126,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
                 object.mining_state = $root.pruntime_rpc.MiningState.toObject(message.mining_state, options);
             if (message.waiting_heartbeats && message.waiting_heartbeats.length) {
                 object.waiting_heartbeats = [];
-                for (let j = 0; j < message.waiting_heartbeats.length; ++j)
+                for (var j = 0; j < message.waiting_heartbeats.length; ++j)
                     object.waiting_heartbeats[j] = message.waiting_heartbeats[j];
             }
             if (message.last_heartbeat_for_block != null && message.hasOwnProperty("last_heartbeat_for_block"))
@@ -6177,7 +6177,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function BenchState(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -6266,9 +6266,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         BenchState.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.BenchState();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.BenchState();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.start_block = reader.uint32();
@@ -6337,7 +6337,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         BenchState.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.BenchState)
                 return object;
-            let message = new $root.pruntime_rpc.BenchState();
+            var message = new $root.pruntime_rpc.BenchState();
             if (object.start_block != null)
                 message.start_block = object.start_block >>> 0;
             if (object.start_time != null)
@@ -6366,11 +6366,11 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         BenchState.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.start_block = 0;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.start_time = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.start_time = options.longs === String ? "0" : 0;
@@ -6423,7 +6423,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function MiningState(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -6512,9 +6512,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         MiningState.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.MiningState();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.MiningState();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.session_id = reader.uint32();
@@ -6583,7 +6583,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         MiningState.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.MiningState)
                 return object;
-            let message = new $root.pruntime_rpc.MiningState();
+            var message = new $root.pruntime_rpc.MiningState();
             if (object.session_id != null)
                 message.session_id = object.session_id >>> 0;
             if (object.paused != null)
@@ -6612,12 +6612,12 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         MiningState.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.session_id = 0;
                 object.paused = false;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.start_time = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.start_time = options.longs === String ? "0" : 0;
@@ -6667,7 +6667,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function EchoMessage(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -6736,9 +6736,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         EchoMessage.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.EchoMessage();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.EchoMessage();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.echo_msg = reader.bytes();
@@ -6795,7 +6795,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         EchoMessage.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.EchoMessage)
                 return object;
-            let message = new $root.pruntime_rpc.EchoMessage();
+            var message = new $root.pruntime_rpc.EchoMessage();
             if (object.echo_msg != null)
                 if (typeof object.echo_msg === "string")
                     $util.base64.decode(object.echo_msg, message.echo_msg = $util.newBuffer($util.base64.length(object.echo_msg)), 0);
@@ -6816,7 +6816,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         EchoMessage.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults)
                 if (options.bytes === String)
                     object.echo_msg = "";
@@ -6853,7 +6853,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
      * @property {number} ExitUnresponsive=2 ExitUnresponsive value
      */
     pruntime_rpc.ResponsiveEvent = (function() {
-        const valuesById = {}, values = Object.create(valuesById);
+        var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[0] = "NoEvent"] = 0;
         values[valuesById[1] = "EnterUnresponsive"] = 1;
         values[valuesById[2] = "ExitUnresponsive"] = 2;
@@ -6896,7 +6896,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
          */
         function TokenomicInfo(properties) {
             if (properties)
-                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
@@ -7135,9 +7135,9 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         TokenomicInfo.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.TokenomicInfo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.pruntime_rpc.TokenomicInfo();
             while (reader.pos < end) {
-                let tag = reader.uint32();
+                var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
                     message.v = reader.string();
@@ -7296,7 +7296,7 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         TokenomicInfo.fromObject = function fromObject(object) {
             if (object instanceof $root.pruntime_rpc.TokenomicInfo)
                 return object;
-            let message = new $root.pruntime_rpc.TokenomicInfo();
+            var message = new $root.pruntime_rpc.TokenomicInfo();
             if (object.v != null)
                 message.v = String(object.v);
             if (object.v_init != null)
@@ -7369,23 +7369,23 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
         TokenomicInfo.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
-            let object = {};
+            var object = {};
             if (options.defaults) {
                 object.v = "";
                 object.v_init = "";
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.v_update_at = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.v_update_at = options.longs === String ? "0" : 0;
                 object.v_update_block = 0;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.iteration_last = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.iteration_last = options.longs === String ? "0" : 0;
                 if ($util.Long) {
-                    let long = new $util.Long(0, 0, true);
+                    var long = new $util.Long(0, 0, true);
                     object.challenge_time_last = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.challenge_time_last = options.longs === String ? "0" : 0;
@@ -7467,14 +7467,14 @@ export const pruntime_rpc = $root.pruntime_rpc = (() => {
     return pruntime_rpc;
 })();
 
-export const google = $root.google = (() => {
+$root.google = (function() {
 
     /**
      * Namespace google.
      * @exports google
      * @namespace
      */
-    const google = {};
+    var google = {};
 
     google.protobuf = (function() {
 
@@ -7483,7 +7483,7 @@ export const google = $root.google = (() => {
          * @memberof google
          * @namespace
          */
-        const protobuf = {};
+        var protobuf = {};
 
         protobuf.Empty = (function() {
 
@@ -7503,7 +7503,7 @@ export const google = $root.google = (() => {
              */
             function Empty(properties) {
                 if (properties)
-                    for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
                             this[keys[i]] = properties[keys[i]];
             }
@@ -7562,9 +7562,9 @@ export const google = $root.google = (() => {
             Empty.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                let end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.Empty();
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.Empty();
                 while (reader.pos < end) {
-                    let tag = reader.uint32();
+                    var tag = reader.uint32();
                     switch (tag >>> 3) {
                     default:
                         reader.skipType(tag & 7);
@@ -7650,3 +7650,5 @@ export const google = $root.google = (() => {
 
     return google;
 })();
+
+module.exports = $root;

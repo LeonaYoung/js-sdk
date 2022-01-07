@@ -1,5 +1,5 @@
 // FIXME: should use crypto in node.js
-import crypto from 'crypto-browserify'
+import crypto from 'crypto'
 import {hexToU8a, hexAddPrefix, hexStripPrefix} from '@polkadot/util'
 
 const ALGO = 'aes-256-gcm'
